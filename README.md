@@ -28,6 +28,8 @@ monitor the EKS cluster. It will also monitor Jenkins. After completion
 of every build, we will get the email notification on our Gmail ID with
 the Trivy scan results and the complete log of the job completed.
 
+here is the the code (youtube clone app) on my github https://github.com/ArmstrongLiwox/a-youtube-clone-app
+
 **So let\'s start building our project.**
 
 On my Windows 10 system I have Termius (I can also use Gitbash
