@@ -11,7 +11,8 @@ application, which we will deploy on Kubernetes.
 ## **Project Summary**
 
 ![project architecture](images/project.png)
-
+---
+The image above defines the architecture of this project. So lets explain it. 
 First of all, we will use Terraform to create the instance for Jenkins,
 and all the packages we will install in that instance using Terraform
 itself. In our CI/CD pipeline, if a user makes any change on the GitHub
@@ -119,7 +120,7 @@ provision on my AWS console like:
 
 -   The security group.
 
-I will log in to my AWS to get some data to update my main.tf file.
+I will log in to my AWS to get some data (AMI for my instance) to update my main.tf file.
 
 ![4](images/image4.png)
 
@@ -216,89 +217,78 @@ Which is the standard image of the SonarQube.
 And after that, it will install the Trivy in that EC2 instance. I will
 save this file also.
 
-You can get the content of the \"install.sh\" content here
-[install.sh](../projects/1/Live%20project%20of%20CICD%20Pipeline%20using%20AWS%20and%20K8S/Jenkens-SonarQube-VM/installSH.txt)
+Note that The path has been specified within our main.tf file.
 
-The path has been specified within our main.tf file (user_data          
-   = templatefile(\"./install.sh\", {})
-
-**Use AWS CLI**
+### **Use AWS CLI**
 
 On the terminal.I already have my AWS credentials. I will check the
 users I have.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image8.png){width="7.5in"
-height="4.079861111111111in"}
+![8](images/image8.png)
+
 
 I will give the command \"***AWS configure***\". I will paste the access
 key and hit enter. I will paste the secret key also and hit enter. So,
 we have successfully logged in from the terminal.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image9.png){width="7.5in"
-height="4.063194444444444in"}
+![9](images/image9.png)
 
-Now I will check for terraform on my PC. It shows its outdated so I will
-download the recent and check again. So now I will use gitbash because
-my VScode integrated terminal is not working.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image10.png){width="7.15625in"
-height="3.939913604549431in"}
+Now I will check for terraform on my PC. It shows its outdated so I will download the recent and check again. 
+
+So now I will use gitbash because my VScode integrated terminal is not working.
+
+![10](images/image10.png)
+
 
 On the VS Code, I\'m inside this folder. I will give the command
 
 \"***terraform init***.\"
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image11.png){width="7.5in"
-height="4.163194444444445in"}
+![11](images/image11.png)
+
 
 Okay, so Terraform has been initialized in this folder. I will now give
 the command
 
 \"***terraform plan.\"***
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image12.png){width="7.5in"
-height="4.151388888888889in"}
+![12](images/image12.png)
+
 
 Okay, so it is going to create these resources in our AWS account.
 
 Finally, I will give the command \"***terraform apply
 -auto-approve***.\"
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image13.png){width="7.5in"
-height="4.0680555555555555in"}
+![13](images/image13.png)
 
-Instance created. If I go to the AWS console, instances, the region
-us-east-1, we will see the instance which has been created, the security
-group and the inbound rules which have been applied as per the Terraform
-script.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image14.png){width="7.5in"
-height="3.6798611111111112in"}
+Instance created. If I go to the AWS console, instances, the region us-east-1, we will see the instance which has been created, the security group and the inbound rules which have been applied as per the Terraform script.
 
-I will then SSH into my instance by clicking on connect and copying the
-SSH string and paste into my git bash terminal.
+![14](images/image14.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image15.png){width="7.5in"
-height="3.8673611111111112in"}
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image16.png){width="6.711805555555555in"
-height="3.675955818022747in"}
+I will then SSH into my instance by clicking on connect and copying the SSH string and paste into my git bash terminal.
+
+![15](images/image15.png)
+
+![16](images/image16.png)
+
 
 I am inside my ec2 instance now. I will give the command
-\"***jenkins-version***,\" so Jenkins has been installed on my system. I
-will give the command \"***docker-version***,\" so Docker is also
+\"***jenkins-version***,\" so Jenkins has been installed on my system. I will give the command \"***docker-version***,\" so Docker is also
 installed.
 
-I will also give the command \"***trivy-version***,\" so this is the
-version of the Trivy which has been installed on my system. If I give
-the command \"**docker-ps -a**,\" we will see the container for the
-SonarQube which is running. Created about a minute ago.
+I will also give the command \"***trivy-version***,\" so this is the version of the Trivy which has been installed on my system. If I give the command \"**docker-ps -a**,\" we will see the container for the SonarQube which is running. Created about a minute ago.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image17.png){width="6.856271872265967in"
-height="3.75in"}
+![17](images/image17.png)
+
 
 We are actually running the SonarQube as the container on this EC2
-instance. You might be doing this project in multiple settings, so while
+instance. 
+
+>You might be doing this project in multiple settings, so while
 you are shutting down your EC2 instance, you need to first stop the
 Docker container first. Give this command \"***docker ps -a***,\" you
 will get the ID for the container, and then give the command \"***docker
@@ -306,37 +296,32 @@ stop***\" and the container ID. After that, you can shut down this EC2
 instance, and once you are back, you need to give give the command
 \"***docker start***\" and the container ID to restart the SonarQube.
 
-**Configure Jenkins**
+## **Configure Jenkins**
 
 We have installed the EC2 instance for Jenkins and SonarCube. Now we
 need to configure Jenkins on that EC2 instance. I will browse the public
 IP of the instance with port 8080, go to this path on the terminal, and
 copy the suggested password for installation.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image18.png){width="7.5in"
-height="3.9652777777777777in"}
+![18](images/image18.png)
+
 
 Install suggested plugins and I will create the user \"Cloud admin\" and
 set the password.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image19.png){width="7.5in"
-height="3.9138888888888888in"}
+![19](images/image19.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image20.png){width="7.5in"
-height="3.9430555555555555in"}
+![20](images/image20.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image21.png){width="7.5in"
-height="3.941666666666667in"}
+![21](images/image21.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image22.png){width="7.5in"
-height="3.9854166666666666in"}
+![22](images/image22.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image23.png){width="7.5in"
-height="3.8847222222222224in"}
+![23](images/image23.png)
 
-Okay, so we are inside the Jenkins dashboard now. We need to install a
-few plugins required for our project. I will go to \"Manage Jenkins\" \>
-\"Manage Plugins\" \> \"Available\" and install the following plugins:
+Okay, so we are inside the Jenkins dashboard now. We need to install a few plugins required for our project. 
+
+I will go to \"Manage Jenkins\" \> \"Manage Plugins\" \> \"Available\" and install the following plugins:
 
 \- Eclipse Timing Installer
 
@@ -349,11 +334,10 @@ few plugins required for our project. I will go to \"Manage Jenkins\" \>
 \- Docker (Docker Commons, Docker Pipeline, Docker API, Docker Build
 Step)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image24.png){width="7.5in"
-height="3.4368055555555554in"}
+![24](images/image24.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image25.png){width="7.5in"
-height="3.848611111111111in"}
+![25](images/image25.png)
+
 
 Now we will install some tools required for this project. I will go to
 \"Manage Jenkins\" \> \"Global Tool Configuration\" and add the
@@ -365,167 +349,136 @@ following tools:
 
 \- Docker
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image26.png){width="7.5in"
-height="3.8930555555555557in"}
+![26](images/image26.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image27.png){width="7.5in"
-height="3.845138888888889in"}
+![27](images/image27.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image28.png){width="7.5in"
-height="3.925in"}
+![28](images/image28.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image29.png){width="7.5in"
-height="3.920138888888889in"}
+![29](images/image29.png)
+
 
 Next, under \"Manage Jenkins,\" I will add the SonarCube server with the
 appropriate settings.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image30.png){width="7.5in"
-height="4.011805555555555in"}
+![30](images/image30.png)
 
-**Configure SonarCube**
+
+## **Configure SonarCube**
 
 Now it\'s time to configure SonarCube. I will copy the public IP of the
 instance and browse it with port 9000.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image31.png){width="7.5in"
-height="3.8534722222222224in"}
+![31](images/image31.png)
+
 
 Provide the default credentials, set a new password, and update tokens
 for Jenkins.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image32.png){width="7.5in"
-height="3.9291666666666667in"}
+![32](images/image32.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image33.png){width="7.5in"
-height="3.9451388888888888in"}
+![33](images/image33.png)
+
 
 Then I will create a token for SonarCube and add it to Jenkins
 credentials.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image34.png){width="7.5in"
-height="3.870833333333333in"}
+![34](images/image34.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image35.png){width="7.5in"
-height="3.886111111111111in"}
+![35](images/image35.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image36.png){width="7.5in"
-height="3.9715277777777778in"}
+![36](images/image36.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image37.png){width="7.5in"
-height="3.8930555555555557in"}
+![37](images/image37.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image38.png){width="7.5in"
-height="3.91875in"}
+![38](images/image38.png)
+
 
 Finally, we need to integrate SonarCube with Jenkins by adding the
 SonarCube server under \"Manage Jenkins\" \> \"Configure System.\"
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image39.png){width="7.5in"
-height="3.8645833333333335in"}
+![39](images/image39.png)
+
 
 Go to quality gates on SonarCube dashboard and create
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image40.png){width="7.5in"
-height="3.964583333333333in"}
+![40](images/image40.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image41.png){width="7.5in"
-height="3.9208333333333334in"}
+![41](images/image41.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image42.png){width="7.5in"
-height="3.9555555555555557in"}
+![42](images/image42.png)
+
 
 Now we have to create the webhook between SonarCube abd Jenkins.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image43.png){width="7.5in"
-height="3.8819444444444446in"}
+![43](images/image43.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image44.png){width="7.5in"
-height="4.033333333333333in"}
+![44](images/image44.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image45.png){width="7.5in"
-height="3.9479166666666665in"}
+![45](images/image45.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image46.png){width="7.5in"
-height="3.95in"}
+![46](images/image46.png)
 
-We have configured Jenkins and SonarCube and integrated them. Now it\'s
-time to create the pipeline. First, I will create a token for our
-project in SonarCube. Then, in the Jenkins dashboard, I will create a
-new item with the required pipeline script.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image47.png){width="7.5in"
-height="3.7868055555555555in"}
+We have configured Jenkins and SonarCube and integrated them. Now it\'s time to create the pipeline. First, I will create a token for our
+project in SonarCube. Then, in the Jenkins dashboard, I will create a new item with the required pipeline script.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image48.png){width="7.5in"
-height="3.7979166666666666in"}
+![47](images/image47.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image49.png){width="7.5in"
-height="3.8541666666666665in"}
+![48](images/image48.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image50.png){width="7.5in"
-height="3.879861111111111in"}
+![49](images/image49.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image51.png){width="7.5in"
-height="3.8826388888888888in"}
+![50](images/image50.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image52.png){width="7.5in"
-height="3.8in"}
+![51](images/image51.png)
 
-**Create pipeline in Jenkins**
+![52](images/image52.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image53.png){width="7.5in"
-height="3.8645833333333335in"}
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image54.png){width="7.5in"
-height="3.9347222222222222in"}
+## **Create pipeline in Jenkins**
 
-Click on Discard old builds
+![53](images/image53.png)
 
-Max number of builds to keep 2
+![54](images/image54.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image55.png){width="7.5in"
-height="3.915277777777778in"}
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image56.png){width="7.5in"
-height="3.9993055555555554in"}
+> Click on Discard old builds
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image57.png){width="7.5in"
-height="3.9722222222222223in"}
+> Max number of builds to keep 2
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image58.png){width="7.5in"
-height="3.902083333333333in"}
+![55](images/image55.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image59.png){width="7.5in"
-height="3.9770833333333333in"}
+![56](images/image56.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image60.png){width="7.5in"
-height="3.8340277777777776in"}
+![57](images/image57.png)
 
-**Create pipeline**
+![58](images/image58.png)
+
+![59](images/image59.png)
+
+![60](images/image60.png)
+
+
+## **Create pipeline**
 
 Next, we need to configure our pipeline to build a Docker image and push
 it to Docker Hub. For this, we need to create a personal access token on
 Docker Hub and add it to Jenkins credentials. Then, we add stages in our
 Jenkins pipeline script to build, tag, push, and scan the Docker image.
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image61.png){width="7.5in"
-height="4.006944444444445in"}
+![61](images/image61.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image62.png){width="7.5in"
-height="3.879166666666667in"}
+![62](images/image62.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image63.png){width="7.5in"
-height="3.9444444444444446in"}
+![63](images/image63.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image64.png){width="7.5in"
-height="3.973611111111111in"}
+![64](images/image64.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image65.png){width="7.5in"
-height="4.039583333333334in"}
+![65](images/image65.png)
 
-![](vertopal_eb288dc93fd54abc85691594073eb467/media/image66.png){width="7.5in"
-height="3.941666666666667in"}
+![66](images/image66.png)
+
 
 ![](vertopal_eb288dc93fd54abc85691594073eb467/media/image67.png){width="7.5in"
 height="3.8569444444444443in"}
