@@ -1,6 +1,6 @@
 # [DevOps CI CD Pipeline using AWS and K8](<https://armstrongliwox.github.io/DevOps-CI-CD-Pipeline-using-AWS-and-K8S/>)
 
-![Uploading devops cicd.png…]()
+![devops cicd](https://github.com/ArmstrongLiwox/DevOps-CI-CD-Pipeline-using-AWS-and-K8S/assets/143335106/defa25ef-f913-4c97-8cac-c89716b75ebf)
 
 [by Armstrong Uzoagwa (DevOps Engineer)](<https://github.com/ArmstrongLiwox>)
 
