@@ -1,5 +1,3 @@
-# DevOps CI CD Pipeline using AWS and K8S
-
 # [DevOps CI CD Pipeline using AWS and K8](<https://armstrongliwox.github.io/DevOps-CI-CD-Pipeline-using-AWS-and-K8S/>)
 
 [by Armstrong Uzoagwa (DevOps Engineer)](<https://github.com/ArmstrongLiwox>)
@@ -1324,7 +1322,7 @@ terraform destroy
 
 ![success](images/success.jpg)
 
-
+[REPOSITORIES](<https://github.com/ArmstrongLiwox?tab=repositories>)
 
 
 
