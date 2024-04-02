@@ -8,9 +8,9 @@ change on the GitHub repository will trigger the pipeline. Once pipeline
 execution is complete, you will see the changes appearing on the
 application, which we will deploy on Kubernetes.
 
-## **Project Summary**
+## Project Summary
 
-![project architecture](images/project.png)
+![project-architecture](images/project.png)
 ---
 The image above defines the architecture of this project. So lets explain it. 
 First of all, we will use Terraform to create the instance for Jenkins,
@@ -105,22 +105,22 @@ resource "aws_security_group" "Jenkins-VM-SG" {
 The main.tf file will contain details for the infrastructure I intend to
 provision on my AWS console like:
 
--   The AMI; you need to change it as per your region.
+- The AMI; you need to change it as per your region.
 
--   Instance type I\'m going to create T2 large.
+- Instance type I\'m going to create T2 large.
 
--   key name,
+- key name,
 
--   Name for the Linux server.
+- Name for the Linux server.
 
--   The user data file \"install.sh,\" which it will run inside the
+- The user data file \"install.sh,\" which it will run inside the
     created EC2 instance.
 
--   Name to the EC2 instance \"Jenkins-SonarQube.\"
+- Name to the EC2 instance \"Jenkins-SonarQube.\"
 
--   Volume size of which we will be using 40gb,
+- Volume size of which we will be using 40gb,
 
--   The security group.
+- The security group.
 
 I will log in to my AWS to get some data (AMI for my instance) to update my main.tf file.
 
