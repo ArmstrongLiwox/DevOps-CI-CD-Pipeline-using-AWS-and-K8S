@@ -1,5 +1,7 @@
 # **DevOps CI CD Pipeline using AWS and K8S**
 
+[Go to  HTML WebPage (if it's prefarred)](<DevOps CI CD Pipeline using AWS and K8S.htm>)
+
 In this live project, I will create a complete DevOps project using
 Jenkins, SonarQube, Trivy, Docker, and Kubernetes.
 
