@@ -1172,9 +1172,11 @@ If I go to my Jenkins job so it has triggered automatically upon the change on t
 
 ![1008](images/1008.png)
 
+And if I go to my email I have received the email alpng with the log from the pipeline. 
+
 ![1009](images/1009.png)
 
-And if I go to my email I have received the email alpng with the log from the pipeline. if I go to my Grafana dashboard, I will go to the pods I will select my source and the name space is default so data is fetching for the newly created Pods. 
+If I go to my Grafana dashboard, I will go to the pods I will select my source and the name space is default so data is fetching for the newly created Pods. 
 
 ![1102](images/1102.png)
 
@@ -1218,7 +1220,103 @@ When I go to my application and do the refresh here so you can see the change ha
 
 ![1116](images/1116.png)
 
+![1109](images/1109.png)
 
+![1110](images/1110.png)
+
+![1111](images/1111.png)
+
+![1112](images/1112.png)
+
+![1113](images/1113.png)
+
+![1116](images/1116.png)
+
+This way you can create the complete automated DevSecOps CICD pipeline which will trigger automatically upon the change on the GitHub repository and once job is completed you will see the changes appearing on the application.
+
+# Clean up
+
+![1117](images/1117.png)
+
+![1118](images/1118.png)
+
+Delete all the pods in prometheus namespace
+```
+kubectl delete --all pods -n prometheus                   
+```
+![1119](images/1119.png)
+
+```
+kubectl delete namespace prometheus
+```
+
+![1120](images/1120.png)
+
+Show the all the deployments, pods & services in default namespace.
+
+```
+kubectl get all
+```
+
+![1121](images/1121.png)
+
+Delete deployment in your k8s cluster
+
+```
+kubectl delete (name of deployment)
+```
+
+![1122](images/1122.png)
+
+Delete service for your deployment of k8s cluster
+```
+kubectl delete service/virtualtechbox-service
+```
+Delete your EKS cluster
+```
+eksctl delete cluster virtualtechbox-cluster --region us-east-1
+```
+```
+eksctl delete cluster --region=us-east-1 --name=virtualtechbox-cluster
+```
+![1123](images/1123.png)
+
+![1124](images/1124.png)
+
+![1125](images/1125.png)
+
+![1126](images/1126.png)
+
+```
+terraform destroy
+```
+
+![1127](images/1127.png)
+
+![1128](images/1128.png)
+
+![1129](images/1129.png)
+
+![1130](images/1130.png)
+
+```
+terraform destroy
+```
+![1131](images/1131.png)
+
+![1132](images/1132.png)
+
+![1134](images/1133.png)
+
+![1135](images/1135.png)
+
+![1136](images/1136.png)
+
+![1137](images/1137.png)
+
+![project](images/project.png)
+
+![success](images/success.jpg)
 
 
 
