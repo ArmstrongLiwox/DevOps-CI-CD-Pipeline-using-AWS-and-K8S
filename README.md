@@ -1,10 +1,10 @@
 # DevOps CI CD Pipeline using AWS and K8S
 
+# [DevOps CI CD Pipeline using AWS and K8](<https://armstrongliwox.github.io/DevOps-CI-CD-Pipeline-using-AWS-and-K8S/>)
 
 [by Armstrong Uzoagwa (DevOps Engineer)](<https://github.com/ArmstrongLiwox>)
 
 [PORTFOLIO: OTHER PROJECTS](<https://armstrongliwox.github.io/portfolio/>)
-
 
 In this live project, I will create a complete DevOps project using
 Jenkins, SonarQube, Trivy, Docker, and Kubernetes.
